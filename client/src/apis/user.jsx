@@ -40,3 +40,15 @@ export const apiUpgradeToManager = () =>
     url: "/user/utm",
     method: "patch",
   })
+export const apiGetUsersByAdmin = (params) =>
+  axios({
+    url: "/user/",
+    method: "get",
+    params,
+  })
+export const apiGetCustomers = (params) =>
+  axios({
+    url: "/user/customer",
+    method: "get",
+    params,
+  })
