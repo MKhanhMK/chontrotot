@@ -52,3 +52,14 @@ export const apiGetCustomers = (params) =>
     method: "get",
     params,
   })
+export const apiUpdateUser = (id, data) =>
+  axios({
+    url: "/user/update/" + id,
+    method: "patch",
+    data,
+  })
+export const apiDeleteUser = (id) =>
+  axios({
+    url: "/user/" + id,
+    method: "delete",
+  })

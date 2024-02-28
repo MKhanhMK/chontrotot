@@ -105,7 +105,10 @@ module.exports = {
       },
     })
     const [updateUser, updateProfile] = await Promise.all([
-      db.Profile.update({ email, firstName, lastName, address, gender, image }, { where: { userId: id } }),
+      db.Profile.update(
+        { email, firstName, lastName, address, gender: gender || "Khác", image },
+        { where: { userId: id } }
+      ),
       db.User.update({ username, phone }, { where: { id } }),
     ])
 
@@ -305,6 +308,39 @@ module.exports = {
       success: Boolean(response),
       mes: response ? "Got." : "Có lỗi, hãy thử lại sau.",
       users: response,
+    })
+  }),
+  updateUser: asyncHandler(async (req, res) => {
+    const { id } = req.params
+    const { username, email, firstName, lastName, address, gender, image, phone, role = [] } = req.body
+    await db.Profile.findOrCreate({
+      where: { userId: id },
+      defaults: {
+        userId: id,
+      },
+    })
+    const [updateUser, updateProfile] = await Promise.all([
+      db.Profile.update(
+        { email, firstName, lastName, address, gender: gender || "Khác", image },
+        { where: { userId: id } }
+      ),
+      db.User.update({ username, phone }, { where: { id } }),
+    ])
+    await db.Role_User.destroy({ where: { userId: id } })
+    await db.Role_User.bulkCreate(role.map((el) => ({ userId: id, roleCode: el })))
+
+    return res.json({
+      success: updateUser[0] > 0 && updateProfile[0] > 0,
+      mes: updateUser[0] > 0 && updateProfile[0] > 0 ? "Cập nhật thành công" : "Có lỗi hãy thử lại xem.",
+    })
+  }),
+  deleteUser: asyncHandler(async (req, res) => {
+    const { id } = req.params
+    const response = await db.User.update({ isDeleted: true }, { where: { id } })
+
+    return res.json({
+      success: response[0] > 0,
+      mes: response[0] > 0 ? "Xóa thành công" : "Có lỗi hãy thử lại xem.",
     })
   }),
 }
