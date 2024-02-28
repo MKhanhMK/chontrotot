@@ -16,6 +16,7 @@ const Invoice = ({ counter, room }) => {
       pdf.save("hoa-don-dich-vu.pdf")
     })
   }
+  const formattedPrice = room.price.toLocaleString('vi-VN');
   return (
     <div
       onClick={(e) => e.stopPropagation()}
@@ -40,6 +41,11 @@ const Invoice = ({ counter, room }) => {
           <span>
             Phòng ở:{" "}
             <span className="font-semibold text-blue-600">{room.title}</span>
+          </span>
+          <span>
+           Gía Phòng ở:{" "} 
+           <span className="font-semibold text-blue-600">{formattedPrice}</span>
+             {" "}VND/tháng
           </span>
           <table>
             <thead>
@@ -102,7 +108,9 @@ const Invoice = ({ counter, room }) => {
                 counter.electric * room.electricPrice +
                   counter.water * room.waterPrice +
                   counter.caps * room.capsPrice +
-                  counter.internet * room.internetPrice
+                  counter.internet * room.internetPrice +
+                  room.price
+                 
               ) + " VND"}
             </span>
           </div>

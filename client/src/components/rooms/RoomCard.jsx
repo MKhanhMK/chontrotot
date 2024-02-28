@@ -107,6 +107,7 @@ const RoomCard = ({
           <span>
             ✅ Trạng thái: <span className="font-bold text-orange-600">{position}</span>
           </span>
+          
           <div className="flex flex-col mt-4 gap-2">
             <span className="text-blue-600 underline">Tiện nghi:</span>
             <div className="grid grid-cols-2 gap-4">
