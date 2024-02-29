@@ -40,6 +40,7 @@ router.patch(
       lastName: stringReq,
       firstName: stringReq,
       gender: stringReq,
+      CID: stringReq,
       image: string,
     })
   ),

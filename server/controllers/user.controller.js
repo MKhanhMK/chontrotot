@@ -97,7 +97,7 @@ module.exports = {
 
   updateProfile: asyncHandler(async (req, res) => {
     const { id } = req.user
-    const { username, email, firstName, lastName, address, gender, image, phone } = req.body
+    const { username, email, firstName, lastName, address, gender, image, phone, CID } = req.body
     await db.Profile.findOrCreate({
       where: { userId: id },
       defaults: {
@@ -106,7 +106,7 @@ module.exports = {
     })
     const [updateUser, updateProfile] = await Promise.all([
       db.Profile.update(
-        { email, firstName, lastName, address, gender: gender || "Khác", image },
+        { email, firstName, lastName, address, gender: gender || "Khác", image, CID },
         { where: { userId: id } }
       ),
       db.User.update({ username, phone }, { where: { id } }),

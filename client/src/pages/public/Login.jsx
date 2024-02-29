@@ -24,23 +24,21 @@ const Login = () => {
     formState: { errors },
     handleSubmit,
     reset,
+    watch,
   } = useForm()
   useEffect(() => {
     reset()
   }, [varriant])
+  const roleCode = watch("roleCode")
   const onCaptchVerify = () => {
     if (!window.recaptchaVerifier) {
-      window.recaptchaVerifier = new RecaptchaVerifier(
-        auth,
-        "recaptcha-container",
-        {
-          size: "invisible",
-          callback: (response) => {
-            handleSendOtp()
-          },
-          "expired-callback": () => {},
-        }
-      )
+      window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
+        size: "invisible",
+        callback: (response) => {
+          handleSendOtp()
+        },
+        "expired-callback": () => {},
+      })
     }
   }
   const handleSendOtp = (phone) => {
@@ -74,11 +72,16 @@ const Login = () => {
           handleSendOtp(data.phone)
         } else toast.error(validatePhoneNumber.mes)
       } else {
-        const response = await apiRegister(data)
-        if (response.success) {
-          toast.success(response.mes)
-          setVarriant("LOGIN")
-        } else toast.error(response.mes)
+        const validatePhoneNumber = await apiValidatePhoneNumber({
+          phone: data.phone,
+        })
+        if (validatePhoneNumber.success) {
+          const response = await apiRegister(data)
+          if (response.success) {
+            toast.success(response.mes)
+            setVarriant("LOGIN")
+          } else toast.error(response.mes)
+        } else toast.error(validatePhoneNumber.mes)
       }
     }
     if (varriant === "LOGIN") {
@@ -97,11 +100,7 @@ const Login = () => {
   }
   return (
     <section className="h-screen w-full relative overflow-hidden">
-      <img
-        src="/lg-bg.jpg"
-        alt="backgound-login"
-        className="w-full h-full grayscale object-cover"
-      />
+      <img src="/lg-bg.jpg" alt="backgound-login" className="w-full h-full grayscale object-cover" />
       <div id="recaptcha-container"></div>
       <div className="absolute inset-0 p-4 bg-overlay-50 flex items-center justify-center">
         <div className="bg-white w-full sm:w-3/5 lg:w-[30%] py-4 md:px-8 px-4 rounded-md flex flex-col items-center gap-4">
@@ -143,6 +142,7 @@ const Login = () => {
               <InputRadio
                 register={register}
                 id="roleCode"
+                value={roleCode}
                 errors={errors}
                 title="Vai trò"
                 optionsClassName="grid grid-cols-2 gap-4"
@@ -152,29 +152,14 @@ const Login = () => {
                   ?.map((el) => ({ label: el.value, value: el.code }))}
               />
             )}
-            <Button
-              onClick={handleSubmit(onSubmit)}
-              className="w-full mt-4 mb-3"
-              disabled={isLoading}
-            >
+            <Button onClick={handleSubmit(onSubmit)} className="w-full mt-4 mb-3" disabled={isLoading}>
               {varriant === "LOGIN" ? "Đăng nhập" : "Đăng ký"}
             </Button>
-            {varriant === "LOGIN" && (
-              <span className="text-sm text-blue-600">Quên mật khẩu?</span>
-            )}
+            {varriant === "LOGIN" && <span className="text-sm text-blue-600">Quên mật khẩu?</span>}
             <span className="text-sm flex gap-2 text-blue-600">
-              <span>
-                {varriant === "LOGIN"
-                  ? "Chưa có tài khoản?"
-                  : "Đã có tài khoản?"}
-              </span>
-              <span
-                onClick={toggleVariant}
-                className="cursor-pointer hover:underline"
-              >
-                {varriant === "LOGIN"
-                  ? "Đi tới đăng ký mới"
-                  : "Đi tới đăng nhập"}
+              <span>{varriant === "LOGIN" ? "Chưa có tài khoản?" : "Đã có tài khoản?"}</span>
+              <span onClick={toggleVariant} className="cursor-pointer hover:underline">
+                {varriant === "LOGIN" ? "Đi tới đăng ký mới" : "Đi tới đăng nhập"}
               </span>
             </span>
             <div className="w-full h-[1px] bg-gray-300 text-center relative">

@@ -124,7 +124,8 @@ const ManageRoom = () => {
                 <td className="border p-3 text-center">{el.title}</td>
                 <td
                   className={twMerge(
-                    clsx("border p-3 text-center", el.position === "Đang xử lý" && "text-orange-600")
+                    clsx("border p-3 text-center", el.position === "Còn trống" && "text-green-600"),
+                    clsx("border p-3 text-center", el.position === "Đang xử lý" && "text-red-500")
                   )}
                 >
                   {el.position}

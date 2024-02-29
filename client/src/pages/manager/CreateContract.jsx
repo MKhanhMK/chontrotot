@@ -40,12 +40,11 @@ const CreateContract = () => {
     const response = await apiGetRooms({
       postedBy: current?.id,
       fields: "title,id",
-      position: "Đang xử lý",
     })
     if (response.success) {
       const options = response.rooms?.map((el) => ({
         value: el.id,
-        label: `${el.id} - ${el.title}`,
+        label: `#${el.id} - ${el.title}`,
       }))
 
       setRooms(options)
@@ -72,9 +71,7 @@ const CreateContract = () => {
     const response = await apiCreateContract(payload)
     if (response.success) {
       toast.success(response.mes)
-      navigate(
-        `/${pathname.manager.LAYOUT}/${pathname.manager.MANAGE_CONTRACT}`
-      )
+      navigate(`/${pathname.manager.LAYOUT}/${pathname.manager.MANAGE_CONTRACT}`)
     } else toast.error(response.mes)
   }
 

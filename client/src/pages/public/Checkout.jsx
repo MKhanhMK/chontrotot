@@ -34,26 +34,20 @@ const Checkout = () => {
       <h1 className="text-3xl font-semibold my-4">Thanh toán phòng trọ</h1>
       <div className="flex flex-col gap-2">
         <p>
-          Cảm ơn bạn đã sử dụng dich vụ của chúng tôi. Chúng tôi xin xác nhận
-          lại phòng bạn đã chọn như sau:
+          Cảm ơn bạn đã sử dụng dich vụ của chúng tôi. Chúng tôi xin xác nhận lại phòng bạn đã chọn như sau:
         </p>
         <span className="mt-6">
-          Tin đăng:{" "}
-          <span className="text-orange-600">{checkoutRoom?.post?.title}</span>
+          Tin đăng: <span className="text-orange-600">{checkoutRoom?.post?.title}</span>
         </span>
         <span>
-          Phòng ở đã chọn:{" "}
-          <span className="text-orange-600">{checkoutRoom?.title}</span>
+          Phòng ở đã chọn: <span className="text-orange-600">{checkoutRoom?.title}</span>
         </span>
         <span className="mb-6">
-          Giá thanh toán:{" "}
-          <span className="text-orange-600">
-            {formatMoney(checkoutRoom?.price) + " VNĐ"}
-          </span>
+          Giá thanh toán: <span className="text-orange-600">{formatMoney(checkoutRoom?.price) + " VNĐ"}</span>
         </span>
         <span>
-          Vui lòng nhập địa chỉ Email của bạn để chúng tôi gửi thông báo về cho
-          bạn sau khi thanh toán thành công.
+          Vui lòng nhập địa chỉ Email của bạn để chúng tôi gửi thông báo về cho bạn sau khi thanh toán thành
+          công.
         </span>
         <InputForm
           id="email"
@@ -63,9 +57,7 @@ const Checkout = () => {
           placeholder="Nhập email của bạn"
         />
         <form className="w-full my-4">
-          <h1 className="font-bold my-4 text-blue-600 underline">
-            Thông tin hợp đồng:
-          </h1>
+          <h1 className="font-bold my-4 text-blue-600 underline">Thông tin hợp đồng:</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-3">
             <InputForm
               id="bName"
@@ -127,10 +119,7 @@ const Checkout = () => {
             />
           </div>
         </form>
-        <div
-          onClick={handleSubmit(onSubmit)}
-          className="w-full flex justify-center my-6"
-        >
+        <div onClick={handleSubmit(onSubmit)} className="w-full flex justify-center my-6">
           <Button>Xác nhận thông tin</Button>
         </div>
         {isSubmit && (

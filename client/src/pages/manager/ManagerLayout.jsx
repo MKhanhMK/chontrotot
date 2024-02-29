@@ -7,29 +7,21 @@ import pathname from "~/utilities/path"
 
 const ManagerLayout = () => {
   const { current } = useUserStore()
+  console.log(current)
   const [isShowMenu, setIsShowMenu] = useState(false)
   if (!current || !current.rroles.some((el) => el.roleCode === "MANAGER"))
     return <Navigate to={`/${pathname.public.LOGIN}`} replace={true} />
   return (
     <section className="w-full min-h-screen lg:grid bg-white grid-cols-10 mx-auto">
       {isShowMenu && (
-        <div
-          onClick={() => setIsShowMenu(false)}
-          className="absolute z-20 inset-0 bg-overlay-70 h-full"
-        >
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className="w-4/5 md:w-2/5 h-full bg-white"
-          >
+        <div onClick={() => setIsShowMenu(false)} className="absolute z-20 inset-0 bg-overlay-70 h-full">
+          <div onClick={(e) => e.stopPropagation()} className="w-4/5 md:w-2/5 h-full bg-white">
             <ManagerSidebar setIsShowMenu={setIsShowMenu} />
           </div>
         </div>
       )}
       <div className="p-4 lg:hidden border-b flex justify-between items-center">
-        <div
-          onClick={() => setIsShowMenu(true)}
-          className="cursor-pointer lg:hidden text-blue-600"
-        >
+        <div onClick={() => setIsShowMenu(true)} className="cursor-pointer lg:hidden text-blue-600">
           <HiMenuAlt2 size={30} />
         </div>
         <img

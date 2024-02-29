@@ -180,8 +180,7 @@ const DetailRoom = ({ room }) => {
           <thead>
             <tr>
               <th className="border p-3 text-center">Ngày thanh toán</th>
-              {/* <th className="border p-3 text-center">Người thanh toán</th> */}
-              <th className="border p-3 text-center">Số điện thanh toán</th>
+              <th className="border p-3 text-center">Người thanh toán</th>
               <th className="border p-3 text-center">Số tiền</th>
               <th className="border p-3 text-center">Trạng thái</th>
             </tr>
@@ -192,7 +191,6 @@ const DetailRoom = ({ room }) => {
                 <td className="border p-3 text-center">
                   {moment(el.createdAt).format("DD/MM/YY")}
                 </td>
-                {/* <td className="border p-3 text-center">{el.rUser?.username}</td> */}
                 <td className="border p-3 text-center">{el.rUser?.phone}</td>
                 <td className="border p-3 text-center">
                   {formatMoney(el.total)}
