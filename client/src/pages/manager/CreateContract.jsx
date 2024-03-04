@@ -28,11 +28,13 @@ const CreateContract = () => {
   const fetchUsers = async () => {
     const response = await apiGetUsersByManager()
     if (response.success) {
-      const options = response.users?.map((el) => ({
-        value: el.id,
-        label: `${el.phone} - ${el.username}`,
-        profile: el.rprofile,
-      }))
+      const options = response.users
+        ?.filter((el) => el.id !== current?.id)
+        ?.map((el) => ({
+          value: el.id,
+          label: `${el.phone} - ${el.username}`,
+          profile: el.rprofile,
+        }))
       setUserOptions(options)
     }
   }

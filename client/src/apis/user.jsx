@@ -63,3 +63,9 @@ export const apiDeleteUser = (id) =>
     url: "/user/" + id,
     method: "delete",
   })
+export const apiUpdateUserByManager = (id, data) =>
+  axios({
+    url: "/user/update-by-manager/" + id,
+    method: "patch",
+    data,
+  })

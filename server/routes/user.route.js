@@ -53,6 +53,22 @@ router.get("/", verifyToken, isAdmin, ctrls.getUsers)
 router.patch("/utm", verifyToken, ctrls.updateManager)
 router.delete("/:id", verifyToken, isAdmin, ctrls.deleteUser)
 router.patch(
+  "/update-by-manager/:id",
+  verifyToken,
+  isManager,
+  validate(
+    joi.object({
+      phone: stringReq,
+      address: string,
+      lastName: string,
+      firstName: string,
+      gender: string,
+      image: string,
+    })
+  ),
+  ctrls.updateUserByManager
+)
+router.patch(
   "/update/:id",
   verifyToken,
   isAdmin,

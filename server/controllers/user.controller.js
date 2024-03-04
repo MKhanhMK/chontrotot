@@ -98,6 +98,12 @@ module.exports = {
   updateProfile: asyncHandler(async (req, res) => {
     const { id } = req.user
     const { username, email, firstName, lastName, address, gender, image, phone, CID } = req.body
+    const alreadyCID = await db.Profile.findOne({ where: { CID } })
+    if (alreadyCID && +alreadyCID.id !== +id)
+      return res.json({
+        mes: "CCCD đã có người sử dụng",
+        success: false,
+      })
     await db.Profile.findOrCreate({
       where: { userId: id },
       defaults: {
@@ -328,6 +334,28 @@ module.exports = {
     ])
     await db.Role_User.destroy({ where: { userId: id } })
     await db.Role_User.bulkCreate(role.map((el) => ({ userId: id, roleCode: el })))
+
+    return res.json({
+      success: updateUser[0] > 0 && updateProfile[0] > 0,
+      mes: updateUser[0] > 0 && updateProfile[0] > 0 ? "Cập nhật thành công" : "Có lỗi hãy thử lại xem.",
+    })
+  }),
+  updateUserByManager: asyncHandler(async (req, res) => {
+    const { id } = req.params
+    const { firstName, lastName, address, gender, image, phone } = req.body
+    await db.Profile.findOrCreate({
+      where: { userId: id },
+      defaults: {
+        userId: id,
+      },
+    })
+    const [updateUser, updateProfile] = await Promise.all([
+      db.Profile.update(
+        { firstName, lastName, address, gender: gender || "Khác", image },
+        { where: { userId: id } }
+      ),
+      db.User.update({ phone }, { where: { id } }),
+    ])
 
     return res.json({
       success: updateUser[0] > 0 && updateProfile[0] > 0,

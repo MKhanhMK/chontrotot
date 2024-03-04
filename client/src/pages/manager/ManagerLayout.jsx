@@ -7,7 +7,6 @@ import pathname from "~/utilities/path"
 
 const ManagerLayout = () => {
   const { current } = useUserStore()
-  console.log(current)
   const [isShowMenu, setIsShowMenu] = useState(false)
   if (!current || !current.rroles.some((el) => el.roleCode === "MANAGER"))
     return <Navigate to={`/${pathname.public.LOGIN}`} replace={true} />

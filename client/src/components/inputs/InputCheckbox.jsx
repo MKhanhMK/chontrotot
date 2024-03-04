@@ -12,6 +12,7 @@ const InputCheckbox = ({
   options = [],
   values = [],
 }) => {
+  console.log({ options, values })
   return (
     <div className={twMerge(clsx("w-full flex flex-col gap-2", containerClassName))}>
       {title && (

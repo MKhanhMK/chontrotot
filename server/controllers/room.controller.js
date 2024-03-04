@@ -21,14 +21,14 @@ module.exports = {
       filters[Op.or] = [
         {
           title: Sequelize.where(
-            Sequelize.fn("LOWER", Sequelize.col("Post.title")),
+            Sequelize.fn("LOWER", Sequelize.col("rPost.title")),
             "LIKE",
             `%${keyword.toLocaleLowerCase()}%`
           ),
         },
         {
           address: Sequelize.where(
-            Sequelize.fn("LOWER", Sequelize.col("Post.address")),
+            Sequelize.fn("LOWER", Sequelize.col("rPost.address")),
             "LIKE",
             `%${keyword.toLocaleLowerCase()}%`
           ),

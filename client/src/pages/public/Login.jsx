@@ -107,7 +107,7 @@ const Login = () => {
           <h1 className="font-bold text-2xl mt-3">
             {varriant === "LOGIN" ? "Đăng nhập" : "Đăng ký tài khoản"}
           </h1>
-          <form className="w-full flex flex-col gap-4">
+          <form className="w-full flex flex-col pb-12 gap-4">
             <InputForm
               register={register}
               id="phone"
@@ -155,14 +155,14 @@ const Login = () => {
             <Button onClick={handleSubmit(onSubmit)} className="w-full mt-4 mb-3" disabled={isLoading}>
               {varriant === "LOGIN" ? "Đăng nhập" : "Đăng ký"}
             </Button>
-            {varriant === "LOGIN" && <span className="text-sm text-blue-600">Quên mật khẩu?</span>}
+            {/* {varriant === "LOGIN" && <span className="text-sm text-blue-600">Quên mật khẩu?</span>} */}
             <span className="text-sm flex gap-2 text-blue-600">
               <span>{varriant === "LOGIN" ? "Chưa có tài khoản?" : "Đã có tài khoản?"}</span>
               <span onClick={toggleVariant} className="cursor-pointer hover:underline">
                 {varriant === "LOGIN" ? "Đi tới đăng ký mới" : "Đi tới đăng nhập"}
               </span>
             </span>
-            <div className="w-full h-[1px] bg-gray-300 text-center relative">
+            {/* <div className="w-full h-[1px] bg-gray-300 text-center relative">
               <span className=" mx-auto inline-block px-2 absolute -top-3 left-0 right-0">
                 <span className="bg-white px-2 w-fit text-sm">Hoặc</span>
               </span>
@@ -172,7 +172,7 @@ const Login = () => {
                 <FaGoogle color="red" />
                 <span>Đăng nhập bằng Google</span>
               </Button>
-            </div>
+            </div> */}
           </form>
         </div>
       </div>
