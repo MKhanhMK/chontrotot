@@ -78,6 +78,14 @@ const CreateRoom = ({ pushRoom, single }) => {
       />
       <InputForm
         register={register}
+        id="garbagePrice"
+        errors={errors}
+        validate={{ required: "Không được bỏ trống." }}
+        title="Giá Rác"
+        type="number"
+      />
+      <InputForm
+        register={register}
         id="capsPrice"
         errors={errors}
         validate={{ required: "Không được bỏ trống." }}

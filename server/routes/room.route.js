@@ -21,6 +21,7 @@ router.patch(
       capsPrice: numberReq,
       internetPrice: numberReq,
       stayMax: numberReq,
+      garbagePrice: numberReq,
       waterPrice: numberReq,
       electricPrice: numberReq,
       title: stringReq,
@@ -41,6 +42,7 @@ router.patch(
       internetPrice: numberReq,
       position: stringReq,
       stayMax: numberReq,
+      garbagePrice: numberReq,
       waterPrice: numberReq,
       electricPrice: numberReq,
     })
@@ -74,6 +76,7 @@ router.post(
       internetPrice: numberReq,
       stayMax: numberReq,
       waterPrice: numberReq,
+      garbagePrice: numberReq,
       electricPrice: numberReq,
       postId: numberReq,
       title: stringReq,

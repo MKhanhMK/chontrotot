@@ -16,6 +16,7 @@ const RoomCard = ({
   title,
   post,
   electricPrice,
+  garbagePrice,
   waterPrice,
   capsPrice,
   internetPrice,

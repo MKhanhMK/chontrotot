@@ -1,6 +1,7 @@
 export { default as HomeSection } from "./HomeSection"
 export { default as List } from "./List"
 export { default as PostCard } from "./PostCard"
+export { default as NewCard } from "./NewCard"
 export { default as RelatedPosts } from "./RelatedPosts"
 export { default as RelatedCard } from "./RelatedCard"
 export { default as CreateRoom } from "./CreateRoom"

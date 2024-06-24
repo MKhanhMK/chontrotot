@@ -1,15 +1,20 @@
 import moment from "moment"
 import React, { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
+import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
+import { apiCreatePayment } from "~/apis/payment"
 import { Button } from "~/components/commons"
 import { InputForm } from "~/components/inputs"
 import { Paypal } from "~/components/payments"
 import { usePostStore, useUserStore } from "~/store"
 import { formatMoney } from "~/utilities/fn"
+import pathname from "~/utilities/path"
 
 const Checkout = () => {
   const { checkoutRoom, setContractData } = usePostStore()
-  const [isSubmit, setIsSubmit] = useState(false)
+  const { current } = useUserStore()
+  const navigate = useNavigate()
   const {
     register,
     formState: { errors },
@@ -17,17 +22,27 @@ const Checkout = () => {
     watch,
     reset,
   } = useForm()
-  const { current } = useUserStore()
   useEffect(() => {
     reset({ bphone: current?.phone })
   }, [current])
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     data.houseaddress = checkoutRoom?.post?.address
     data.price = String(checkoutRoom?.price)
     data.start = moment().format("YYYY-MM-DD")
     data.end = moment().add(30, "days").format("YYYY-MM-DD")
     setContractData(data)
-    setIsSubmit(true)
+    const payload = {
+      roomId: checkoutRoom?.roomId,
+      total: checkoutRoom?.price,
+      email: watch("email"),
+    }
+    if (current) payload.userId = current?.id
+    const response = await apiCreatePayment(payload)
+    if (response.success) {
+      toast.success(response.mes)
+      // window.open(`/${pathname.user.CONTRACT}`, "_blank")
+      navigate(`/${pathname.user.CONTRACT}`)
+    } else toast.error(response.mes)
   }
   return (
     <div className="w-full lg:w-main mx-auto p-4">
@@ -120,9 +135,9 @@ const Checkout = () => {
           </div>
         </form>
         <div onClick={handleSubmit(onSubmit)} className="w-full flex justify-center my-6">
-          <Button>Xác nhận thông tin</Button>
+          <Button>Tạo hợp đồng</Button>
         </div>
-        {isSubmit && (
+        {/* {isSubmit && (
           <div className="w-full my-12">
             <Paypal
               payload={{
@@ -133,7 +148,7 @@ const Checkout = () => {
               amount={checkoutRoom?.price}
             />
           </div>
-        )}
+        )} */}
       </div>
     </div>
   )

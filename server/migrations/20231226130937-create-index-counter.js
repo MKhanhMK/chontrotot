@@ -23,6 +23,10 @@ module.exports = {
         allowNull: false,
         defaultValue: 0,
       },
+      garbage: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
       caps: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,

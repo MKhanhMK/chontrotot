@@ -55,6 +55,7 @@ const UpdateIndex = ({ room }) => {
           validate={{ required: "Không được bỏ  trống" }}
           title="Chỉ số nước (khối)"
         />
+       
         <InputCheckbox
           id="services"
           register={register}
@@ -64,6 +65,8 @@ const UpdateIndex = ({ room }) => {
           options={[
             { label: "Dịch vụ truyền hình", value: "caps", code: "caps" },
             { label: "Dịch vụ internet", value: "internet", code: "internet" },
+            { label: "Tiền Rác", value: "garbage", code: "garbage" },
+          
           ]}
         />
         <Button onClick={handleSubmit(handleAddIndex)}>Cập nhật</Button>

@@ -10,16 +10,19 @@ const Invoice = ({ counter, room }) => {
     const input = document.getElementById("divToPrint")
     html2canvas(input).then((canvas) => {
       const imgData = canvas.toDataURL("image/png")
-      const pdf = new jsPDF()
+      const pdf = new jsPDF({
+        orientation: "landscape",
+        unit: "in",
+      })
       pdf.addImage(imgData, "JPEG", 0, 0)
       // pdf.output('dataurlnewwindow');
       pdf.save(Date.now() + "-hoa-don-dich-vu.pdf")
     })
   }
-
+  const formattedPrice = room.price.toLocaleString("vi-VN");
   return (
-    <div onClick={(e) => e.stopPropagation()} className="bg-white rounded-md p-4">
-      <div id="divToPrint" className="bg-white min-w-[800px] text-black p-8 mx-auto">
+    <div onClick={(e) => e.stopPropagation()} className="bg-white overflow-x-auto rounded-md p-4">
+      <div id="divToPrint" className="bg-white w-full lg:min-w-[800px] text-black p-8 mx-auto">
         <div className="text-center font-semibold text-3xl">Hoá đơn sử dụng dịch vụ</div>
         <div className="my-8 flex flex-col gap-3 p-4">
           <span>
@@ -32,6 +35,13 @@ const Invoice = ({ counter, room }) => {
           </span>
           <span>
             Phòng ở: <span className="font-semibold text-blue-600">{room.title}</span>
+          </span>
+          <span>
+            Gía Phòng ở:{" "}
+            <span className="font-semibold text-blue-600">
+              {formattedPrice}
+            </span>{" "}
+            VND/tháng
           </span>
           <table>
             <thead>
@@ -50,6 +60,7 @@ const Invoice = ({ counter, room }) => {
                   <span className="flex flex-col gap-2">
                     <span>Điện</span>
                     <span>Nước</span>
+                    <span>Rác</span>
                     <span>Cap truyền hình</span>
                     <span>Internet</span>
                   </span>
@@ -58,6 +69,7 @@ const Invoice = ({ counter, room }) => {
                   <span className="flex flex-col gap-2">
                     <span>{counter.electric}</span>
                     <span>{counter.water}</span>
+                    <span>{counter.garbage ? "Có" : "Không"}</span>
                     <span>{counter.caps ? "Có" : "Không"}</span>
                     <span>{counter.internet ? "Có" : "Không"}</span>
                   </span>
@@ -66,6 +78,7 @@ const Invoice = ({ counter, room }) => {
                   <span className="flex flex-col gap-2">
                     <span>{formatMoney(room.electricPrice) + "/kWh"}</span>
                     <span>{formatMoney(room.waterPrice) + "/khối"}</span>
+                    <span>{formatMoney(room.garbagePrice) + "/tháng"}</span>
                     <span>{formatMoney(room.capsPrice) + "/tháng"}</span>
                     <span>{formatMoney(room.internetPrice) + "/tháng"}</span>
                   </span>
@@ -74,6 +87,9 @@ const Invoice = ({ counter, room }) => {
                   <span className="flex flex-col gap-2">
                     <span>{formatMoney(counter.electric * room.electricPrice)}</span>
                     <span>{formatMoney(counter.water * room.waterPrice)}</span>
+                    <span>
+                      {formatMoney(room.garbagePrice)}
+                    </span>
                     <span>{formatMoney(room.capsPrice)}</span>
                     <span>{formatMoney(room.internetPrice)}</span>
                   </span>
@@ -87,8 +103,10 @@ const Invoice = ({ counter, room }) => {
               {formatMoney(
                 counter.electric * room.electricPrice +
                   counter.water * room.waterPrice +
+                  room.garbagePrice * 1 +
                   room.capsPrice * 1 +
-                  room.internetPrice * 1
+                  room.internetPrice * 1 +
+                  room.price
               ) + " VND"}
             </span>
           </div>

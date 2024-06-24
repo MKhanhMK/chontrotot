@@ -45,6 +45,10 @@ module.exports = {
         type: Sequelize.STRING,
         defaultValue: 0,
       },
+      garbagePrice: {
+        type: Sequelize.STRING,
+        defaultValue: 0,
+      },
       capsPrice: {
         type: Sequelize.STRING,
         defaultValue: 0,

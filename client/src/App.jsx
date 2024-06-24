@@ -3,9 +3,9 @@ import { Route, Routes } from "react-router-dom"
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import pathname from "~/utilities/path"
-import { CanHo, Checkout, DetailPost, Home, Login, PhongTro, PublicLayout, TimGhep } from "./pages/public"
+import { CanHo, Checkout, DetailPost,DetailNew, Home, Login, PhongTro, PublicLayout, TimGhep,TinTuc } from "./pages/public"
 import { useAppStore, useUserStore } from "./store"
-import { Profile, UserLayout, ViewContract } from "./pages/user"
+import { MyRoom, Profile, UserLayout, ViewContract } from "./pages/user"
 import { Modal } from "./components/commons"
 import Filter from "./pages/public/Filter"
 import {
@@ -21,6 +21,7 @@ import {
 } from "./pages/manager"
 import { AdminDashboard, AdminLayout } from "./pages/admin"
 import ManageUser from "./pages/admin/ManageUser"
+import clsx from "clsx"
 
 const App = () => {
   const { getRoles, getCatalogs, isShowModal, contentModal, getCovenients } = useAppStore()
@@ -34,7 +35,12 @@ const App = () => {
     if (token) getCurrent()
   }, [token])
   return (
-    <main className="bg-gray-100">
+    <main
+      className={clsx(
+        "bg-gray-100 ",
+        isShowModal ? "w-screen h-screen overflow-hidden" : "w-full h-full overflow-auto"
+      )}
+    >
       {isShowModal && <Modal>{contentModal}</Modal>}
 
       <Routes>
@@ -58,6 +64,8 @@ const App = () => {
           <Route path={pathname.public.CHECKOUT} element={<Checkout />} />
           <Route path={pathname.public.FILTER} element={<Filter />} />
           <Route path={pathname.public.TIMGHEP} element={<TimGhep />} />
+          <Route path={pathname.public.TINTUC} element={<TinTuc />} />
+          <Route path={pathname.public.DETAIL_NEW__PID} element={<DetailNew />} />
           <Route path={pathname.public.DETAIL_POST__PID} element={<DetailPost />} />
           <Route path={pathname.public.TRANGCHU} element={<Home />} />
         </Route>
@@ -69,6 +77,7 @@ const App = () => {
         {/* User Routes */}
         <Route path={pathname.user.LAYOUT} element={<UserLayout />}>
           <Route path={pathname.user.PROFILE} element={<Profile />} />
+          <Route path={pathname.user.MY_ROOM} element={<MyRoom />} />
         </Route>
 
         {/* Admin Routes */}

@@ -69,3 +69,20 @@ export const apiUpdateUserByManager = (id, data) =>
     method: "patch",
     data,
   })
+export const apiGetMyRooms = (params) =>
+  axios({
+    url: "/user/rented-rooms/",
+    method: "get",
+    params,
+  })
+export const apiGetIndexCounterByRoomId = (roomId) =>
+  axios({
+    url: "/user/rented-rooms-idx-counter/" + roomId,
+    method: "get",
+  })
+export const apiUpdatePaymentIndex = (id, data) =>
+  axios({
+    url: "/user/payment-idx/" + id,
+    method: "patch",
+    data,
+  })

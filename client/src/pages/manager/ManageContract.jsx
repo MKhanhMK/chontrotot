@@ -129,7 +129,7 @@ const ManageContract = () => {
                 <td className="border p-3 text-center">
                   <span className="line-clamp-2">{el.rRoom?.title}</span>
                 </td>
-                <td className="border p-3 text-center">{el.rUser?.phone}</td>
+                <td className="border p-3 text-center">{el.rUser?.username}</td>
                 <td className="border hidden md:table-cell p-3 text-center">{formatMoney(el.preMoney)}</td>
                 <td className="border p-3 text-center">{moment(el.expiredAt).format("DD/MM/YY")}</td>
                 <td className="border p-3 hidden lg:table-cell text-center">{el.stayNumber}</td>
@@ -145,6 +145,7 @@ const ManageContract = () => {
                     >
                       <RiDeleteBin6Line size={18} />
                     </span>
+                  
                   </span>
                 </td>
               </tr>

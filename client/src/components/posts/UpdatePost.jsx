@@ -54,8 +54,9 @@ const UpdatePost = ({ post }) => {
             stayMax: row[4],
             electricPrice: row[5],
             waterPrice: row[6],
-            capsPrice: row[7],
-            internetPrice: row[8],
+            garbagePrice:row[7],
+            capsPrice: row[8],
+            internetPrice: row[9],
           })
       }
       setRooms(roomData)

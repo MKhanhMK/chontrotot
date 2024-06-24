@@ -48,7 +48,7 @@ const PostCard = ({ images = [], title, star = 0, address, rRooms = [], rCatalog
         {rRooms?.length > 0 && (
           <span>
             <span className="text-orange-600 text-2xl">
-              {rRooms.length === 1
+             💵 {rRooms.length === 1
                 ? `${formatMoney(rRooms[0]?.price)}`
                 : `${formatMoney(
                     rRooms.map((el) => el.price).reduce((a, b) => Math.min(a, b))
@@ -56,6 +56,21 @@ const PostCard = ({ images = [], title, star = 0, address, rRooms = [], rCatalog
             </span>{" "}
             VNĐ
           </span>
+          
+        )}
+         {rRooms?.length > 0 && (
+          <span>
+           🏠 {" "}
+            <span className="text-orange-600 text-2xl">
+              {rRooms.length === 1
+                ? `${formatMoney(rRooms[0]?.area)}`
+                : `${formatMoney(
+                    rRooms.map((el) => el.area).reduce((a, b) => Math.min(a, b))
+                  )} ~ ${formatMoney(rRooms.map((el) => el.area).reduce((a, b) => Math.max(a, b)))}`}
+            </span>{" "}
+            m2
+          </span>
+          
         )}
         <span className="flex items-center gap-2">
           <img

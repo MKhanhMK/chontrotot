@@ -9,7 +9,7 @@ cloudinary.config({
 
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
-  allowedFormats: ["jpg", "png"],
+  allowedFormats: ["jpg", "png","mp4"],
   params: {
     folder: "phongtro_assets",
     public_id: (req, file) => {

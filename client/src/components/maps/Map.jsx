@@ -30,7 +30,11 @@ const Map = ({ address = "", zoom = 12 }) => {
   useEffect(() => {
     fetchLongtitudeAndLatitude()
   }, [address])
-
+  const handleMarkerClick = () => {
+    // Chuyển hướng đến Google Maps với địa chỉ tương ứng
+    const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${address}`;
+    window.open(googleMapsUrl, "_blank");
+  };
   return (
     <>
       {center && center.length > 0 && (
@@ -42,7 +46,7 @@ const Map = ({ address = "", zoom = 12 }) => {
         >
           <TileLayer url={url} attribution={attribution} />
           {center && (
-            <Marker position={center}>
+            <Marker position={center} eventHandlers={{ click: handleMarkerClick }}>
               <Popup>
                 <b>{address}</b>
               </Popup>

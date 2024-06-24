@@ -144,7 +144,7 @@ module.exports = {
     const { services, ...data } = req.body
     if (services.some((el) => el === "caps")) data.caps = true
     if (services.some((el) => el === "internet")) data.internet = true
-
+    if (services.some((el) => el === "garbage")) data.garbage = true
     const response = await db.IndexCounter.create(data)
     return res.json({
       success: !!response,

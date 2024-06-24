@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { apiGetDashboardManager } from "~/apis/app"
-import { LineChart, PieChart, ShowInformation } from "~/components/charts"
+import { LineChart, PieChart, ShowInformation, RevenueChart } from "~/components/charts"
 import { AiOutlineEye } from "react-icons/ai"
 import { IoNewspaperOutline } from "react-icons/io5"
 import { MdMeetingRoom } from "react-icons/md"
@@ -29,6 +29,22 @@ const Dashboard = () => {
   const type = watch("type")
   const from = watch("from")
   const to = watch("to")
+  const calculateRevenue = () => {
+    let totalRevenue = 0;
+    if (type === "MONTH") {
+      totalRevenue = data?.roomStatus?.reduce((sum, el) =>
+        sum + el.rRooms?.reduce((sum1, el1) =>
+          sum1 + el1.rPayment?.reduce((sum2, el2) =>
+            sum2 + (el2.status === "Thành công" ? el2.total : 0), 0), 0), 0);
+    } else if (type === "DAY") {
+      // Calculate revenue based on day
+      // You need to consider the date range from 'from' to 'to'
+      // You might need to parse dates and filter data accordingly
+    }
+    return totalRevenue;
+  };
+  
+  const revenue = calculateRevenue();
   useEffect(() => {
     setValue("type", "DAY")
   }, []),
@@ -88,22 +104,22 @@ const Dashboard = () => {
           />
         </div>
         <div className="grid my-4 grid-cols-1 lg:grid-cols-2 gap-4">
-          <PieChart
-            title="Trạng thái tin đăng"
-            labels={["Khả dụng", "Đã xóa"]}
-            datasets={[
-              {
-                label: "Số tin đăng",
-                data: [
-                  data?.classifyPost?.find((el) => el.isDeleted === false)?.postCounter,
-                  data?.classifyPost?.find((el) => el.isDeleted === true)?.postCounter,
-                ],
-                backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(54, 162, 235, 0.2)"],
-                borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
-                borderWidth: 1,
-              },
-            ]}
-          />
+        <PieChart
+  title="Trạng thái tin đăng"
+  labels={["Khả dụng", "Đã xóa"]}
+  datasets={[
+    {
+      label: "Số tin đăng",
+      data: [
+        data?.classifyPost?.find((el) => el.isDeleted === false)?.postCounter,
+        data?.classifyPost?.find((el) => el.isDeleted === true)?.postCounter,
+      ],
+      backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(54, 162, 235, 0.2)"],
+      borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
+      borderWidth: 1,
+    },
+  ]}
+/>
           <PieChart
             title="Trạng thái phòng"
             labels={["Đã thuê", "Đang xử lý", "Còn trống"]}
@@ -190,6 +206,8 @@ const Dashboard = () => {
             <LineChart customTime={{ from, to }} isMonth={type === "MONTH"} data={data?.postData} />
           </div>
         </div>
+        <RevenueChart/>
+       
       </div>
     </div>
   )

@@ -40,7 +40,7 @@ const UpdateUserByManager = ({ user }) => {
       onClick={(e) => e.stopPropagation()}
       className="lg:w-[600px] flex bg-white w-4/5 rounded-md items-center justify-center flex-col"
     >
-      <h1 className="text-3xl font-bold mt-4 py-4 px-4">Cập nhật thành viên</h1>
+      <h1 className="text-3xl font-bold mt-4 py-4 px-4">Cập nhật Khách thuê</h1>
       <form className="p-4 px-8 max-h-[80vh] overflow-y-auto w-full flex flex-col items-center gap-4">
         <InputForm
           id="phone"

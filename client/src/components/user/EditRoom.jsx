@@ -24,6 +24,7 @@ const EditRoom = ({ editRoom, setRooms, updateRoom, fromPost }) => {
         convenients: editRoom?.rConvenients,
         electricPrice: editRoom?.electricPrice,
         waterPrice: editRoom?.waterPrice,
+        garbagePrice: editRoom?.garbagePrice,
         capsPrice: editRoom?.capsPrice,
         internetPrice: editRoom?.internetPrice,
       })
@@ -75,6 +76,14 @@ const EditRoom = ({ editRoom, setRooms, updateRoom, fromPost }) => {
           errors={errors}
           validate={{ required: "Không được bỏ trống." }}
           title="Giá nước / mét khối"
+          type="number"
+        />
+        <InputForm
+          register={register}
+          id="garbagePrice"
+          errors={errors}
+          validate={{ required: "Không được bỏ trống." }}
+          title="Gía tiền rác"
           type="number"
         />
         <InputForm

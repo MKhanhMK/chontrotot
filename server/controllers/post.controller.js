@@ -33,6 +33,7 @@ module.exports = {
       stayMax: el.stayMax,
       electricPrice: el.electricPrice,
       waterPrice: el.waterPrice,
+      garbagePrice: el.garbagePrice,
       capsPrice: el.capsPrice,
       internetPrice: el.internetPrice,
     }))
@@ -240,6 +241,7 @@ module.exports = {
         stayMax: el.stayMax,
         electricPrice: el.electricPrice,
         waterPrice: el.waterPrice,
+        garbagePrice: el.garbagePrice,
         capsPrice: el.capsPrice,
         internetPrice: el.internetPrice,
       }))

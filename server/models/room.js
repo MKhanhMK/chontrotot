@@ -34,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       stayMax: DataTypes.INTEGER,
       electricPrice: DataTypes.INTEGER,
       waterPrice: DataTypes.INTEGER,
+      garbagePrice: DataTypes.INTEGER,
       capsPrice: DataTypes.INTEGER,
       internetPrice: DataTypes.INTEGER,
       position: {

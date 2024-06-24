@@ -47,10 +47,13 @@ router.patch(
   ctrls.updateProfile
 )
 router.get("/current", verifyToken, ctrls.getCurrent)
+router.get("/rented-rooms", verifyToken, ctrls.getRentedRooms)
+router.get("/rented-rooms-idx-counter/:roomId", verifyToken, ctrls.getIndexCounterByRoomId)
 router.get("/manager", verifyToken, isManager, ctrls.getUsers)
 router.get("/customer", verifyToken, isManager, ctrls.getCustomersByManager)
 router.get("/", verifyToken, isAdmin, ctrls.getUsers)
 router.patch("/utm", verifyToken, ctrls.updateManager)
+router.patch("/payment-idx/:id", verifyToken, isManager, ctrls.updatePaymentIndex)
 router.delete("/:id", verifyToken, isAdmin, ctrls.deleteUser)
 router.patch(
   "/update-by-manager/:id",
